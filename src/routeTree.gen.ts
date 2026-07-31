@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppUploadRouteImport } from './routes/app.upload'
 import { Route as AppMeetingsIndexRouteImport } from './routes/app.meetings.index'
 import { Route as AppMeetingsIdRouteImport } from './routes/app.meetings.$id'
 
@@ -54,6 +55,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppUploadRoute = AppUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppMeetingsIndexRoute = AppMeetingsIndexRouteImport.update({
   id: '/meetings/',
   path: '/meetings/',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/upload': typeof AppUploadRoute
   '/app/': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
   '/app/meetings/': typeof AppMeetingsIndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/upload': typeof AppUploadRoute
   '/app': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
   '/app/meetings': typeof AppMeetingsIndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/upload': typeof AppUploadRoute
   '/app/': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
   '/app/meetings/': typeof AppMeetingsIndexRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/upload'
     | '/app/'
     | '/app/meetings/$id'
     | '/app/meetings/'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/upload'
     | '/app'
     | '/app/meetings/$id'
     | '/app/meetings'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/upload'
     | '/app/'
     | '/app/meetings/$id'
     | '/app/meetings/'
@@ -193,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/upload': {
+      id: '/app/upload'
+      path: '/upload'
+      fullPath: '/app/upload'
+      preLoaderRoute: typeof AppUploadRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/meetings/': {
       id: '/app/meetings/'
       path: '/meetings'
@@ -211,12 +230,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppUploadRoute: typeof AppUploadRoute
   AppIndexRoute: typeof AppIndexRoute
   AppMeetingsIdRoute: typeof AppMeetingsIdRoute
   AppMeetingsIndexRoute: typeof AppMeetingsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppUploadRoute: AppUploadRoute,
   AppIndexRoute: AppIndexRoute,
   AppMeetingsIdRoute: AppMeetingsIdRoute,
   AppMeetingsIndexRoute: AppMeetingsIndexRoute,
