@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -24,22 +24,23 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDate, initials, meetings, type Meeting } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/app/meetings/$id")({
-  loader: ({ params }): { meeting: Meeting } => {
-    const meeting = meetings.find((m) => m.id === params.id);
-    if (!meeting) throw notFound();
-    return { meeting };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) {
-      return { meta: [{ title: "Meeting unavailable — MeetMind AI" }, { name: "robots", content: "noindex" }] };
+  head: ({ params }) => {
+    const m = meetings.find((x) => x.id === params.id);
+    if (!m) {
+      return {
+        meta: [
+          { title: "Meeting unavailable — MeetMind AI" },
+          { name: "robots", content: "noindex" },
+        ],
+      };
     }
-    const t = `${loaderData.meeting.title} — MeetMind AI`;
+    const t = `${m.title} — MeetMind AI`;
     return {
       meta: [
         { title: t },
-        { name: "description", content: loaderData.meeting.summary.slice(0, 155) },
+        { name: "description", content: m.summary.slice(0, 155) },
         { property: "og:title", content: t },
-        { property: "og:description", content: loaderData.meeting.summary.slice(0, 155) },
+        { property: "og:description", content: m.summary.slice(0, 155) },
       ],
     };
   },
@@ -47,7 +48,8 @@ export const Route = createFileRoute("/app/meetings/$id")({
 });
 
 function MeetingDetail() {
-  const { meeting } = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const meeting = meetings.find((m) => m.id === id) as Meeting;
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState([28]);
 
