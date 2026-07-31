@@ -1,24 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteNav } from "@/components/landing/site-nav";
+import { Hero } from "@/components/landing/hero";
+import { TrustedBy } from "@/components/landing/trusted-by";
+import { Features } from "@/components/landing/features";
+import { Showcase } from "@/components/landing/showcase";
+import { Testimonials } from "@/components/landing/testimonials";
+import { Pricing } from "@/components/landing/pricing";
+import { Faq } from "@/components/landing/faq";
+import { SiteFooter } from "@/components/landing/site-footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "MeetMind AI — Turn Meetings into Actionable Insights" },
+      {
+        name: "description",
+        content:
+          "MeetMind AI transcribes, summarizes, translates and reports on meetings from Zoom, Google Meet and Teams in 32 languages.",
+      },
+      { property: "og:title", content: "MeetMind AI — Multilingual Meeting Intelligence" },
+      {
+        property: "og:description",
+        content:
+          "Automatic transcription, summaries, action items, translation and reports for every meeting.",
+      },
+    ],
+  }),
+  component: Landing,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Landing() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <SiteNav />
+      <main>
+        <Hero />
+        <TrustedBy />
+        <Features />
+        <Showcase />
+        <Testimonials />
+        <Pricing />
+        <Faq />
+      </main>
+      <SiteFooter />
     </div>
   );
 }
