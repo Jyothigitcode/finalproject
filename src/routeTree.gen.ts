@@ -19,6 +19,7 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppChatRouteImport } from './routes/app.chat'
 import { Route as AppReportsRouteImport } from './routes/app.reports'
+import { Route as AppTeamRouteImport } from './routes/app.team'
 import { Route as AppUploadRouteImport } from './routes/app.upload'
 import { Route as AppMeetingsIndexRouteImport } from './routes/app.meetings.index'
 import { Route as AppMeetingsIdRouteImport } from './routes/app.meetings.$id'
@@ -73,6 +74,11 @@ const AppReportsRoute = AppReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => AppRoute,
 } as any)
+const AppTeamRoute = AppTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppUploadRoute = AppUploadRouteImport.update({
   id: '/upload',
   path: '/upload',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
   '/app/': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
   '/app': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
+  '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
   '/app/': typeof AppIndexRoute
   '/app/meetings/$id': typeof AppMeetingsIdRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
+    | '/app/team'
     | '/app/upload'
     | '/app/'
     | '/app/meetings/$id'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
+    | '/app/team'
     | '/app/upload'
     | '/app'
     | '/app/meetings/$id'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
+    | '/app/team'
     | '/app/upload'
     | '/app/'
     | '/app/meetings/$id'
@@ -262,6 +274,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppReportsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/team': {
+      id: '/app/team'
+      path: '/team'
+      fullPath: '/app/team'
+      preLoaderRoute: typeof AppTeamRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/upload': {
       id: '/app/upload'
       path: '/upload'
@@ -290,6 +309,7 @@ interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppChatRoute: typeof AppChatRoute
   AppReportsRoute: typeof AppReportsRoute
+  AppTeamRoute: typeof AppTeamRoute
   AppUploadRoute: typeof AppUploadRoute
   AppIndexRoute: typeof AppIndexRoute
   AppMeetingsIdRoute: typeof AppMeetingsIdRoute
@@ -300,6 +320,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppChatRoute: AppChatRoute,
   AppReportsRoute: AppReportsRoute,
+  AppTeamRoute: AppTeamRoute,
   AppUploadRoute: AppUploadRoute,
   AppIndexRoute: AppIndexRoute,
   AppMeetingsIdRoute: AppMeetingsIdRoute,
