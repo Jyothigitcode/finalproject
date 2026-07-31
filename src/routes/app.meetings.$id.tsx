@@ -21,7 +21,7 @@ import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { formatDate, initials, meetings } from "@/lib/mock-data";
+import { formatDate, initials, meetings, type Meeting } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/app/meetings/$id")({
   loader: ({ params }): { meeting: Meeting } => {
