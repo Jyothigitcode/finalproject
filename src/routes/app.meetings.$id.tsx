@@ -24,7 +24,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDate, initials, meetings } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/app/meetings/$id")({
-  loader: ({ params }) => {
+  loader: ({ params }): { meeting: Meeting } => {
     const meeting = meetings.find((m) => m.id === params.id);
     if (!meeting) throw notFound();
     return { meeting };
