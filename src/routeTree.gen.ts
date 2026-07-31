@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppChatRouteImport } from './routes/app.chat'
 import { Route as AppReportsRouteImport } from './routes/app.reports'
 import { Route as AppUploadRouteImport } from './routes/app.upload'
@@ -57,6 +58,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppChatRoute = AppChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
   '/app/upload': typeof AppUploadRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
   '/app/upload': typeof AppUploadRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/verify': typeof VerifyRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/reports': typeof AppReportsRoute
   '/app/upload': typeof AppUploadRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
     | '/app/upload'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
     | '/app/upload'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/verify'
+    | '/app/analytics'
     | '/app/chat'
     | '/app/reports'
     | '/app/upload'
@@ -229,6 +241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/chat': {
       id: '/app/chat'
       path: '/chat'
@@ -268,6 +287,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppChatRoute: typeof AppChatRoute
   AppReportsRoute: typeof AppReportsRoute
   AppUploadRoute: typeof AppUploadRoute
@@ -277,6 +297,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
   AppChatRoute: AppChatRoute,
   AppReportsRoute: AppReportsRoute,
   AppUploadRoute: AppUploadRoute,
