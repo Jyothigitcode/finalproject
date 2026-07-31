@@ -38,7 +38,7 @@ export function AppTopbar() {
 
   const go = (to: string) => {
     setOpenCommand(false);
-    navigate({ to });
+    navigate({ to: to as string as never });
   };
 
   return (
@@ -130,10 +130,8 @@ export function AppTopbar() {
             <DropdownMenuItem asChild>
               <Link to="/app/settings">Settings</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link to="/pricing">
-                <Sparkles className="size-4" /> Upgrade
-              </Link>
+            <DropdownMenuItem onSelect={() => undefined}>
+              <Sparkles className="size-4" /> Upgrade
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>

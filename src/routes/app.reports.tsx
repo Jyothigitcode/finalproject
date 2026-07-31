@@ -23,10 +23,10 @@ export const Route = createFileRoute("/app/reports")({
 });
 
 const templates = [
-  { name: "Executive summary", desc: "One page, decisions and risks only.", tone: "primary" },
-  { name: "Full meeting report", desc: "Transcript, summary, actions, sentiment.", tone: "cyan" },
-  { name: "Weekly digest", desc: "Everything from the last 7 days.", tone: "emerald" },
-  { name: "Client-ready recap", desc: "Branded, no internal notes.", tone: "amber" },
+  { name: "Executive summary", desc: "One page, decisions and risks only.", tone: "bg-primary/10 text-primary" },
+  { name: "Full meeting report", desc: "Transcript, summary, actions, sentiment.", tone: "bg-cyan/10 text-cyan" },
+  { name: "Weekly digest", desc: "Everything from the last 7 days.", tone: "bg-emerald/10 text-emerald" },
+  { name: "Client-ready recap", desc: "Branded, no internal notes.", tone: "bg-amber/10 text-amber" },
 ];
 
 function ReportsPage() {
@@ -56,9 +56,7 @@ function ReportsPage() {
             onClick={() => toast.success(`${t.name} template selected`)}
             className="surface lift p-5 text-left"
           >
-            <span
-              className={`grid size-10 place-items-center rounded-xl bg-${t.tone}/10 text-${t.tone}`}
-            >
+            <span className={`grid size-10 place-items-center rounded-xl ${t.tone}`}>
               <FileText className="size-[18px]" />
             </span>
             <h3 className="mt-3 text-sm font-semibold text-foreground">{t.name}</h3>
