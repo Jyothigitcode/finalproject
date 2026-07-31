@@ -18,6 +18,7 @@ import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppChatRouteImport } from './routes/app.chat'
+import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
 import { Route as AppReportsRouteImport } from './routes/app.reports'
 import { Route as AppTeamRouteImport } from './routes/app.team'
 import { Route as AppUploadRouteImport } from './routes/app.upload'
@@ -69,6 +70,11 @@ const AppChatRoute = AppChatRouteImport.update({
   path: '/chat',
   getParentRoute: () => AppRoute,
 } as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppReportsRoute = AppReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/verify': typeof VerifyRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/reports': typeof AppReportsRoute
   '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/verify': typeof VerifyRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/reports': typeof AppReportsRoute
   '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/verify': typeof VerifyRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
+  '/app/notifications': typeof AppNotificationsRoute
   '/app/reports': typeof AppReportsRoute
   '/app/team': typeof AppTeamRoute
   '/app/upload': typeof AppUploadRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/app/analytics'
     | '/app/chat'
+    | '/app/notifications'
     | '/app/reports'
     | '/app/team'
     | '/app/upload'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/app/analytics'
     | '/app/chat'
+    | '/app/notifications'
     | '/app/reports'
     | '/app/team'
     | '/app/upload'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/verify'
     | '/app/analytics'
     | '/app/chat'
+    | '/app/notifications'
     | '/app/reports'
     | '/app/team'
     | '/app/upload'
@@ -267,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChatRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/notifications': {
+      id: '/app/notifications'
+      path: '/notifications'
+      fullPath: '/app/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/reports': {
       id: '/app/reports'
       path: '/reports'
@@ -308,6 +327,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppChatRoute: typeof AppChatRoute
+  AppNotificationsRoute: typeof AppNotificationsRoute
   AppReportsRoute: typeof AppReportsRoute
   AppTeamRoute: typeof AppTeamRoute
   AppUploadRoute: typeof AppUploadRoute
@@ -319,6 +339,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppChatRoute: AppChatRoute,
+  AppNotificationsRoute: AppNotificationsRoute,
   AppReportsRoute: AppReportsRoute,
   AppTeamRoute: AppTeamRoute,
   AppUploadRoute: AppUploadRoute,
