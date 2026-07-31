@@ -49,9 +49,21 @@ export const Route = createFileRoute("/app/meetings/$id")({
 
 function MeetingDetail() {
   const { id } = Route.useParams();
-  const meeting = meetings.find((m) => m.id === id) as Meeting;
+  const meeting = meetings.find((m) => m.id === id) as Meeting | undefined;
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState([28]);
+
+  if (!meeting) {
+    return (
+      <div className="surface mx-auto max-w-md p-10 text-center">
+        <p className="text-sm font-medium text-foreground">This meeting no longer exists.</p>
+        <Button variant="outline" size="sm" className="mt-4" asChild>
+          <Link to="/app/meetings">Back to meetings</Link>
+        </Button>
+      </div>
+    );
+  }
+
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
