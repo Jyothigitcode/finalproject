@@ -5,8 +5,11 @@ import {
   ArrowLeft,
   CheckCircle2,
   Download,
+  FileText,
   Languages,
   Lightbulb,
+  ListChecks,
+  Mail,
   Pause,
   Play,
   Share2,
@@ -22,6 +25,19 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDate, initials, meetings, type Meeting } from "@/lib/mock-data";
+import {
+  availableTranslations,
+  downloadText,
+  exportPdf,
+  generateEmail,
+  generateJiraTasks,
+  generateMOM,
+  getTranslation,
+  jiraCsv,
+  languageName,
+} from "@/lib/ai-service";
+import { useActionItemState } from "@/lib/store";
+
 
 export const Route = createFileRoute("/app/meetings/$id")({
   head: ({ params }) => {
@@ -91,14 +107,53 @@ function MeetingDetail() {
             participants
           </p>
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex flex-wrap gap-2 sm:shrink-0">
           <Button variant="outline" size="sm" onClick={() => toast.success("Share link copied")}>
             <Share2 className="size-4" /> Share
           </Button>
-          <Button variant="hero" size="sm" onClick={() => toast.success("Exporting PDF…")}>
-            <Download className="size-4" /> Export
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              downloadText(`${meeting.id}-minutes.md`, generateMOM(meeting), "text/markdown");
+              toast.success("Minutes of meeting downloaded");
+            }}
+          >
+            <FileText className="size-4" /> MOM
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              navigator.clipboard.writeText(generateEmail(meeting));
+              toast.success("Follow-up email copied to clipboard");
+            }}
+          >
+            <Mail className="size-4" /> Email
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              downloadText(`${meeting.id}-jira.csv`, jiraCsv(generateJiraTasks(meeting)), "text/csv");
+              toast.success(`${meeting.actionItems.length} Jira tasks exported`);
+            }}
+          >
+            <ListChecks className="size-4" /> Jira
+          </Button>
+          <Button
+            variant="hero"
+            size="sm"
+            onClick={() => {
+              exportPdf(meeting)
+                ? toast.success("Report ready — use your browser's print dialog")
+                : toast.error("Allow pop-ups to export the PDF report");
+            }}
+          >
+            <Download className="size-4" /> PDF report
           </Button>
         </div>
+
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1.35fr_1fr]">
