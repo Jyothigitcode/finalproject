@@ -5,8 +5,11 @@ import {
   ArrowLeft,
   CheckCircle2,
   Download,
+  FileText,
   Languages,
   Lightbulb,
+  ListChecks,
+  Mail,
   Pause,
   Play,
   Share2,
@@ -22,6 +25,19 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatDate, initials, meetings, type Meeting } from "@/lib/mock-data";
+import {
+  availableTranslations,
+  downloadText,
+  exportPdf,
+  generateEmail,
+  generateJiraTasks,
+  generateMOM,
+  getTranslation,
+  jiraCsv,
+  languageName,
+} from "@/lib/ai-service";
+import { useActionItemState } from "@/lib/store";
+
 
 export const Route = createFileRoute("/app/meetings/$id")({
   head: ({ params }) => {
