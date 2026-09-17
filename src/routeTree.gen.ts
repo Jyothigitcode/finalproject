@@ -19,6 +19,7 @@ import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppChatRouteImport } from './routes/app.chat'
 import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
+import { Route as AppProcessingRouteImport } from './routes/app.processing'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
 import { Route as AppReportsRouteImport } from './routes/app.reports'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
@@ -77,6 +78,11 @@ const AppNotificationsRoute = AppNotificationsRouteImport.update({
   path: '/notifications',
   getParentRoute: () => AppRoute,
 } as any)
+const AppProcessingRoute = AppProcessingRouteImport.update({
+  id: '/processing',
+  path: '/processing',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/notifications': typeof AppNotificationsRoute
+  '/app/processing': typeof AppProcessingRoute
   '/app/profile': typeof AppProfileRoute
   '/app/reports': typeof AppReportsRoute
   '/app/settings': typeof AppSettingsRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/notifications': typeof AppNotificationsRoute
+  '/app/processing': typeof AppProcessingRoute
   '/app/profile': typeof AppProfileRoute
   '/app/reports': typeof AppReportsRoute
   '/app/settings': typeof AppSettingsRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/chat': typeof AppChatRoute
   '/app/notifications': typeof AppNotificationsRoute
+  '/app/processing': typeof AppProcessingRoute
   '/app/profile': typeof AppProfileRoute
   '/app/reports': typeof AppReportsRoute
   '/app/settings': typeof AppSettingsRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/notifications'
+    | '/app/processing'
     | '/app/profile'
     | '/app/reports'
     | '/app/settings'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/notifications'
+    | '/app/processing'
     | '/app/profile'
     | '/app/reports'
     | '/app/settings'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/app/analytics'
     | '/app/chat'
     | '/app/notifications'
+    | '/app/processing'
     | '/app/profile'
     | '/app/reports'
     | '/app/settings'
@@ -310,6 +322,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppNotificationsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/processing': {
+      id: '/app/processing'
+      path: '/processing'
+      fullPath: '/app/processing'
+      preLoaderRoute: typeof AppProcessingRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/profile': {
       id: '/app/profile'
       path: '/profile'
@@ -366,6 +385,7 @@ interface AppRouteChildren {
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppChatRoute: typeof AppChatRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
+  AppProcessingRoute: typeof AppProcessingRoute
   AppProfileRoute: typeof AppProfileRoute
   AppReportsRoute: typeof AppReportsRoute
   AppSettingsRoute: typeof AppSettingsRoute
@@ -380,6 +400,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppChatRoute: AppChatRoute,
   AppNotificationsRoute: AppNotificationsRoute,
+  AppProcessingRoute: AppProcessingRoute,
   AppProfileRoute: AppProfileRoute,
   AppReportsRoute: AppReportsRoute,
   AppSettingsRoute: AppSettingsRoute,

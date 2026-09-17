@@ -24,17 +24,14 @@ export const Route = createFileRoute("/app/chat")({
   component: ChatPage,
 });
 
-type Msg = { id: string; role: "user" | "assistant"; text: string; sources?: string[] };
+type Msg = { id: string; role: "user" | "assistant"; text: string; full?: string; sources?: string[] };
 
 const suggestions = [
-  "What did we decide about the Q3 roadmap?",
-  "List all action items due this week",
-  "Summarize customer objections from last month",
-  "Who owns the GPU budget contract?",
+  "What did we decide in the Product Development Weekly meeting?",
+  "List all open action items and their owners",
+  "What are the risks and blockers right now?",
+  "Show the Telugu translation summary",
 ];
-
-const canned =
-  "Across your last 5 meetings, three decisions stand out:\n\n1. **Multilingual ASR** became the top Q3 priority, with a private beta on August 18.\n2. **Insights API** moves to 20 design partners before general availability.\n3. **GPU budget** was increased by 12% to protect the beta timeline.\n\nTwo action items are still open: finalising the GPU capacity contract (Aarav, due Aug 2) and shipping the ASR beta (Chris, due Aug 18).";
 
 function ChatPage() {
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -53,24 +50,23 @@ function ChatPage() {
     setInput("");
     setStreaming(true);
 
+    const { text: answer, sources } = answerQuestion(text);
     const id = crypto.randomUUID();
-    setMessages((m) => [
-      ...m,
-      { id, role: "assistant", text: "", sources: meetings.slice(0, 3).map((x) => x.title) },
-    ]);
+    setMessages((m) => [...m, { id, role: "assistant", text: "", full: answer, sources }]);
 
     let i = 0;
     const tick = setInterval(() => {
-      i += 4;
+      i += 6;
       setMessages((m) =>
-        m.map((msg) => (msg.id === id ? { ...msg, text: canned.slice(0, i) } : msg)),
+        m.map((msg) => (msg.id === id ? { ...msg, text: answer.slice(0, i) } : msg)),
       );
-      if (i >= canned.length) {
+      if (i >= answer.length) {
         clearInterval(tick);
         setStreaming(false);
       }
     }, 16);
   };
+
 
   return (
     <div className="mx-auto flex h-[calc(100vh-9rem)] max-w-4xl flex-col">
