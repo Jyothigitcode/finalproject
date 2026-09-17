@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { meetings } from "@/lib/mock-data";
+import { answerQuestion } from "@/lib/ai-service";
 
 export const Route = createFileRoute("/app/chat")({
   head: () => ({
