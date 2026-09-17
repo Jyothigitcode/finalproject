@@ -129,7 +129,7 @@ function ChatPage() {
                   <>
                     <div className="whitespace-pre-wrap text-sm leading-relaxed text-foreground">
                       {m.text}
-                      {streaming && m.text.length < canned.length && (
+                      {streaming && m.text.length < (m.full?.length ?? 0) && (
                         <span className="ml-0.5 inline-block h-4 w-1.5 animate-pulse bg-primary align-middle" />
                       )}
                     </div>
